@@ -39,7 +39,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-7.948475117546757,110.26199102122317],[-7.94745859669279,110.2634453558123]]);
+        }).fitBounds([[-7.94843818517227,110.26221831649472],[-7.947421664226818,110.26367265108385]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -133,6 +133,12 @@
                         <th scope="row">type</th>\
                         <td class="visible-with-data" id="type">' + (feature.properties['type'] !== null ? autolinker.link(String(feature.properties['type']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Alamat'] !== null ? autolinker.link(String(feature.properties['Alamat']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Keterangan'] !== null ? autolinker.link(String(feature.properties['Keterangan']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
 			layer.on('popupopen', function(e) {
@@ -141,8 +147,10 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Kawasanmasjidalizzadantkabakrapakan_1_0() {
-            return {
+        function style_Kawasanmasjidalizzadantkabakrapakan_1_0(feature) {
+            switch(String(feature.properties['type'])) {
+                case 'Area':
+                    return {
                 pane: 'pane_Kawasanmasjidalizzadantkabakrapakan_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -152,8 +160,70 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(243,166,178,1.0)',
+                fillColor: 'rgba(241,212,97,1.0)',
                 interactive: true,
+            }
+                    break;
+                case 'Area ':
+                    return {
+                pane: 'pane_Kawasanmasjidalizzadantkabakrapakan_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(241,212,97,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sekolah':
+                    return {
+                pane: 'pane_Kawasanmasjidalizzadantkabakrapakan_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(12,226,176,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Tempat ibadah':
+                    return {
+                pane: 'pane_Kawasanmasjidalizzadantkabakrapakan_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(111,181,226,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Kawasanmasjidalizzadantkabakrapakan_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,214,105,1.0)',
+                interactive: true,
+            }
+                    break;
             }
         }
         map.createPane('pane_Kawasanmasjidalizzadantkabakrapakan_1');
